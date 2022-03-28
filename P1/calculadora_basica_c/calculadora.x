@@ -7,5 +7,6 @@ program CALCULADORA {
 		double potencia (double, double) = 5;
 		double raiz (double, double) = 6;
 		double factorial (double) = 7;
+		double modulo (double, double) = 8;
 	} = 1;
 } = 0x20000155;

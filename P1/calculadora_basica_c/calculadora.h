@@ -52,6 +52,12 @@ struct raiz_1_argument {
 };
 typedef struct raiz_1_argument raiz_1_argument;
 
+struct modulo_1_argument {
+	double arg1;
+	double arg2;
+};
+typedef struct modulo_1_argument modulo_1_argument;
+
 #define CALCULADORA 0x20000155
 #define CALCULADORA_1 1
 
@@ -77,6 +83,9 @@ extern  double * raiz_1_svc(double , double , struct svc_req *);
 #define factorial 7
 extern  double * factorial_1(double , CLIENT *);
 extern  double * factorial_1_svc(double , struct svc_req *);
+#define modulo 8
+extern  double * modulo_1(double , double , CLIENT *);
+extern  double * modulo_1_svc(double , double , struct svc_req *);
 extern int calculadora_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -101,6 +110,9 @@ extern  double * raiz_1_svc();
 #define factorial 7
 extern  double * factorial_1();
 extern  double * factorial_1_svc();
+#define modulo 8
+extern  double * modulo_1();
+extern  double * modulo_1_svc();
 extern int calculadora_1_freeresult ();
 #endif /* K&R C */
 
@@ -113,6 +125,7 @@ extern  bool_t xdr_multiplicar_1_argument (XDR *, multiplicar_1_argument*);
 extern  bool_t xdr_dividir_1_argument (XDR *, dividir_1_argument*);
 extern  bool_t xdr_potencia_1_argument (XDR *, potencia_1_argument*);
 extern  bool_t xdr_raiz_1_argument (XDR *, raiz_1_argument*);
+extern  bool_t xdr_modulo_1_argument (XDR *, modulo_1_argument*);
 
 #else /* K&R C */
 extern bool_t xdr_sumar_1_argument ();
@@ -121,6 +134,7 @@ extern bool_t xdr_multiplicar_1_argument ();
 extern bool_t xdr_dividir_1_argument ();
 extern bool_t xdr_potencia_1_argument ();
 extern bool_t xdr_raiz_1_argument ();
+extern bool_t xdr_modulo_1_argument ();
 
 #endif /* K&R C */
 

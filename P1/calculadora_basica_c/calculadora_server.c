@@ -94,3 +94,14 @@ factorial_1_svc(double arg1,  struct svc_req *rqstp)
 
 	return &result;
 }
+
+double *
+modulo_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
+{
+	static double  result;
+
+	result = (int) arg1 % (int) arg2;
+	printf("La operacion realizada es un modulo --> %lf %% %lf = %lf\n\n", arg1, arg2, result);
+
+	return &result;
+}

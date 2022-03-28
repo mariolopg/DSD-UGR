@@ -79,6 +79,14 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		printf("La operacion realizada es un factorial --> %lf! = %lf\n\n", num1, *(result));
 		break;
 
+	case '%':
+		result = modulo_1(num1, num2, clnt);
+		if (result == (double *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+		printf("La operacion realizada es un modulo --> %lf %% %lf = %lf\n\n", num1, num2, *(result));
+		break;
+
 	default:
 		printf("Operacion no valida, por favor introduzca una operacion valida\n");
 		break;
@@ -113,6 +121,7 @@ main (int argc, char *argv[])
 		printf(" ^ : Para realizar una potencia\n");
 		printf(" v : Para realizar una raiz\n");
 		printf(" ! : Para realizar un factorial\n");
+		printf(" %% : Para realizar un modulo\n");
 		printf(" s : Para salir\n");
 
 		scanf(" %c", &operador);
@@ -122,7 +131,7 @@ main (int argc, char *argv[])
 
 		switch (operador)
 		{
-		case '+': case '-': case '*': case '/':
+		case '+': case '-': case '*': case '/': case '%':
 			printf("Introduzca el primer numero\n");
 			scanf("%lf", &num1);
 			

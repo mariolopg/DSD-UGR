@@ -125,3 +125,20 @@ factorial_1(double arg1,  CLIENT *clnt)
 	}
 	return (&clnt_res);
 }
+
+double *
+modulo_1(double arg1, double arg2,  CLIENT *clnt)
+{
+	modulo_1_argument arg;
+	static double clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	arg.arg1 = arg1;
+	arg.arg2 = arg2;
+	if (clnt_call (clnt, modulo, (xdrproc_t) xdr_modulo_1_argument, (caddr_t) &arg,
+		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}

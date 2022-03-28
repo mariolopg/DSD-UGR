@@ -58,6 +58,12 @@ _factorial_1 (double  *argp, struct svc_req *rqstp)
 	return (factorial_1_svc(*argp, rqstp));
 }
 
+static double *
+_modulo_1 (modulo_1_argument *argp, struct svc_req *rqstp)
+{
+	return (modulo_1_svc(argp->arg1, argp->arg2, rqstp));
+}
+
 static void
 calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
@@ -69,6 +75,7 @@ calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		potencia_1_argument potencia_1_arg;
 		raiz_1_argument raiz_1_arg;
 		double factorial_1_arg;
+		modulo_1_argument modulo_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -119,6 +126,12 @@ calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_double;
 		_xdr_result = (xdrproc_t) xdr_double;
 		local = (char *(*)(char *, struct svc_req *)) _factorial_1;
+		break;
+
+	case modulo:
+		_xdr_argument = (xdrproc_t) xdr_modulo_1_argument;
+		_xdr_result = (xdrproc_t) xdr_double;
+		local = (char *(*)(char *, struct svc_req *)) _modulo_1;
 		break;
 
 	default:
