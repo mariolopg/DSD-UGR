@@ -28,6 +28,7 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		if (result == (double *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
+		printf("La operacion realizada es una suma --> %lf + %lf = %lf\n\n", num1, num2, *(result));
 		break;
 	
 	case '-':
@@ -35,6 +36,7 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		if (result == (double *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
+		printf("La operacion realizada es una resta --> %lf - %lf = %lf\n\n", num1, num2, *(result));
 		break;
 
 	case '*':
@@ -42,6 +44,7 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		if (result == (double *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
+		printf("La operacion realizada es una multiplicacion --> %lf * %lf = %lf\n\n", num1, num2, *(result));	
 		break;
 
 	case '/':
@@ -49,6 +52,7 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		if (result == (double *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
+		printf("La operacion realizada es una division --> %lf / %lf = %lf\n\n", num1, num2, *(result));
 		break;
 
 	case '^':
@@ -56,6 +60,7 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		if (result == (double *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
+		printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", num1, num2, *(result));
 		break;
 
 	// case 'v':
@@ -70,6 +75,7 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		if (result == (double *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
+		printf("La operacion realizada es un factorial --> %lf! = %lf\n\n", num1, *(result));
 		break;
 
 	default:

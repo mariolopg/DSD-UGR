@@ -1,4 +1,4 @@
 *.o
 .DS_Store
-calculadora_cliente
+calculadora_client
 calculadora_server

@@ -7,6 +7,7 @@
 #define _CALCULADORA_H_RPCGEN
 
 #include <rpc/rpc.h>
+#include <stdio.h>
 
 
 #ifdef __cplusplus

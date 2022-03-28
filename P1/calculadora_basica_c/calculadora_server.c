@@ -11,7 +11,9 @@ sumar_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
 	static double  result;
 
-	printf("La operacion realizada es una suma --> %lf + %lf = %lf\n\n", arg1, arg2, arg1 + arg2);
+	result = (arg1 + arg2);
+
+	printf("La operacion realizada es una suma --> %lf + %lf = %lf\n\n", arg1, arg2, result);
 
 	return &result;
 }
@@ -21,7 +23,9 @@ restar_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
 	static double  result;
 
-	printf("La operacion realizada es una resta --> %lf - %lf = %lf\n\n", arg1, arg2, arg1 - arg2);
+	result = (arg1 - arg2);
+
+	printf("La operacion realizada es una resta --> %lf - %lf = %lf\n\n", arg1, arg2, result);
 
 	return &result;
 }
@@ -31,7 +35,9 @@ multiplicar_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
 	static double  result;
 
-	printf("La operacion realizada es una multiplicacion --> %lf * %lf = %lf\n\n", arg1, arg2, arg1 * arg2);
+	result = (arg1 * arg2);
+
+	printf("La operacion realizada es una multiplicacion --> %lf * %lf = %lf\n\n", arg1, arg2, result);
 
 	return &result;
 }
@@ -41,7 +47,9 @@ dividir_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
 	static double  result;
 
-	printf("La operacion realizada es una division --> %lf / %lf = %lf\n\n", arg1, arg2, arg1 / arg2);
+	result = (arg1 / arg2);
+
+	printf("La operacion realizada es una division --> %lf / %lf = %lf\n\n", arg1, arg2, result);
 
 	return &result;
 }
@@ -55,7 +63,9 @@ potencia_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 	for(int i = 1; i <= arg2; i++)
 		calculo = calculo * arg1;
 
-	printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", arg1, arg2, calculo);
+	result = calculo;
+
+	printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", arg1, arg2, result);
 
 	return &result;
 }
@@ -78,7 +88,9 @@ factorial_1_svc(double arg1,  struct svc_req *rqstp)
 	for(int i = arg1 - 1; i >= 2; i--)
 		calculo = calculo * i;
 
-	printf("La operacion realizada es un factorial --> %lf! = %lf\n\n", arg1, calculo);
+	result = calculo;
+
+	printf("La operacion realizada es un factorial --> %lf! = %lf\n\n", arg1, result);
 
 	return &result;
 }
