@@ -60,10 +60,7 @@ potencia_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 	static double  result;
 	double calculo = 1.0;
 
-	for(int i = 1; i <= arg2; i++)
-		calculo = calculo * arg1;
-
-	result = calculo;
+	result = pow(arg1, arg2);
 
 	printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", arg1, arg2, result);
 
@@ -75,8 +72,8 @@ raiz_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
 	static double  result;
 
-	result = sqrt(arg1);
-	printf("La operacion realizada es una potencia --> √ %lf = %lf\n\n", arg1, result);
+	result = pow(arg2, 1.0 / arg1);
+	printf("La operacion realizada es una raiz --> %lf √ %lf = %lf\n\n", arg1, arg2, result);
 
 	return &result;
 }

@@ -68,7 +68,7 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		if (result == (double *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es una potencia --> √ %lf = %lf\n\n", num1, *(result));
+		printf("La operacion realizada es una raiz --> %lf √ %lf = %lf\n\n", num1, num2, *(result));
 		break;
 
 	case '!':
@@ -139,8 +139,11 @@ main (int argc, char *argv[])
 			break;
 
 		case 'v':
-			printf("Introduzca el radicando\n");
+			printf("Introduzca el indice\n");
 			scanf("%lf", &num1);
+
+			printf("Introduzca el radicando\n");
+			scanf("%lf", &num2);
 			break;
 
 		case '!':
