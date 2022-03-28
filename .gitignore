@@ -1,0 +1,4 @@
+*.o
+.DS_Store
+calculadora_cliente
+calculadora_server
