@@ -63,12 +63,13 @@ calculadora_1(char *host, double num1, double num2, char operador)
 		printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", num1, num2, *(result));
 		break;
 
-	// case 'v':
-	// 	result = raiz_1(num2, num2, clnt);
-	// 	if (result == (double *) NULL) {
-	// 		clnt_perror (clnt, "call failed");
-	// 	}
-	// 	break;
+	case 'v':
+		result = raiz_1(num1, num2, clnt);
+		if (result == (double *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+		printf("La operacion realizada es una potencia --> √ %lf = %lf\n\n", num1, *(result));
+		break;
 
 	case '!':
 		result = factorial_1(num1, clnt);
@@ -110,7 +111,7 @@ main (int argc, char *argv[])
 		printf(" * : Para realizar una multiplicacion\n");
 		printf(" / : Para realizar una division\n");
 		printf(" ^ : Para realizar una potencia\n");
-		// printf(" v : Para realizar una raiz\n");
+		printf(" v : Para realizar una raiz\n");
 		printf(" ! : Para realizar un factorial\n");
 		printf(" s : Para salir\n");
 
@@ -137,13 +138,10 @@ main (int argc, char *argv[])
 			scanf("%lf", &num2);
 			break;
 
-		// case 'v':
-		// 	printf("Introduzca el indice\n");
-		// 	scanf("%lf", &num1);
-			
-		// 	printf("Introduzca el radicando\n");
-		// 	scanf("%lf", &num2);
-		// 	break;
+		case 'v':
+			printf("Introduzca el radicando\n");
+			scanf("%lf", &num1);
+			break;
 
 		case '!':
 			printf("Introduzca el numero\n");

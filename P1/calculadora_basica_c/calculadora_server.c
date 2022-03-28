@@ -75,6 +75,9 @@ raiz_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
 	static double  result;
 
+	result = sqrt(arg1);
+	printf("La operacion realizada es una potencia --> √ %lf = %lf\n\n", arg1, result);
+
 	return &result;
 }
 

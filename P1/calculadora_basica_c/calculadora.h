@@ -8,6 +8,7 @@
 
 #include <rpc/rpc.h>
 #include <stdio.h>
+#include <math.h>
 
 
 #ifdef __cplusplus
