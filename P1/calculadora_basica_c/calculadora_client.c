@@ -11,7 +11,7 @@ void
 calculadora_1(char *host, double num1, double num2, char operador)
 {
 	CLIENT *clnt;
-	double  *result;
+	operacion_result  *result;
 
 #ifndef	DEBUG
 	clnt = clnt_create (host, CALCULADORA, CALCULADORA_1, "udp");
@@ -25,68 +25,74 @@ calculadora_1(char *host, double num1, double num2, char operador)
 	{
 	case '+':
 		result = sumar_1(num1, num2, clnt);
-		if (result == (double *) NULL) {
+		if (result == (operacion_result *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es una suma --> %lf + %lf = %lf\n\n", num1, num2, *(result));
+		printf("La operacion realizada es una suma --> %lf + %lf = %lf\n\n", num1, num2, result->operacion_result_u.result);
 		break;
 	
 	case '-':
 		result = restar_1(num1, num2, clnt);
-		if (result == (double *) NULL) {
+		if (result == (operacion_result *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es una resta --> %lf - %lf = %lf\n\n", num1, num2, *(result));
+		printf("La operacion realizada es una resta --> %lf - %lf = %lf\n\n", num1, num2, result->operacion_result_u.result);
 		break;
 
 	case '*':
 		result = multiplicar_1(num1, num2, clnt);
-		if (result == (double *) NULL) {
+		if (result == (operacion_result *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es una multiplicacion --> %lf * %lf = %lf\n\n", num1, num2, *(result));	
+		printf("La operacion realizada es una multiplicacion --> %lf * %lf = %lf\n\n", num1, num2, result->operacion_result_u.result);	
 		break;
 
 	case '/':
 		result = dividir_1(num1, num2, clnt);
-		if (result == (double *) NULL) {
+		if (result == (operacion_result *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es una division --> %lf / %lf = %lf\n\n", num1, num2, *(result));
+		printf("La operacion realizada es una division --> %lf / %lf = %lf\n\n", num1, num2, result->operacion_result_u.result);
 		break;
 
 	case '^':
 		result = potencia_1(num1, num2, clnt);
-		if (result == (double *) NULL) {
+		if (result == (operacion_result *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", num1, num2, *(result));
+		printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", num1, num2, result->operacion_result_u.result);
 		break;
 
 	case 'v':
 		result = raiz_1(num1, num2, clnt);
-		if (result == (double *) NULL) {
+		if (result == (operacion_result *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es una raiz --> %lf √ %lf = %lf\n\n", num1, num2, *(result));
+		printf("La operacion realizada es una raiz --> %lf √ %lf = %lf\n\n", num1, num2, result->operacion_result_u.result);
 		break;
 
 	case '!':
 		result = factorial_1(num1, clnt);
-		if (result == (double *) NULL) {
+		if (result == (operacion_result *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es un factorial --> %lf! = %lf\n\n", num1, *(result));
+		printf("La operacion realizada es un factorial --> %lf! = %lf\n\n", num1, result->operacion_result_u.result);
 		break;
 
 	case '%':
 		result = modulo_1(num1, num2, clnt);
-		if (result == (double *) NULL) {
+		if (result == (operacion_result *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
-		printf("La operacion realizada es un modulo --> %lf %% %lf = %lf\n\n", num1, num2, *(result));
+		printf("La operacion realizada es un modulo --> %lf %% %lf = %lf\n\n", num1, num2, result->operacion_result_u.result);
 		break;
 
+	case 'a':
+		result = vabsoluto_1(num1, clnt);
+		if (result == (operacion_result *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+		printf("La operacion realizada es un valor absoluto --> abs(%lf) = %lf\n\n", num1, result->operacion_result_u.result);
 	default:
 		printf("Operacion no valida, por favor introduzca una operacion valida\n");
 		break;
@@ -122,6 +128,7 @@ main (int argc, char *argv[])
 		printf(" v : Para realizar una raiz\n");
 		printf(" ! : Para realizar un factorial\n");
 		printf(" %% : Para realizar un modulo\n");
+		printf(" a : Para realizar un valor absoluto\n");
 		printf(" s : Para salir\n");
 
 		scanf(" %c", &operador);
@@ -155,7 +162,7 @@ main (int argc, char *argv[])
 			scanf("%lf", &num2);
 			break;
 
-		case '!':
+		case '!': case 'a':
 			printf("Introduzca el numero\n");
 			scanf("%lf", &num1);
 			break;

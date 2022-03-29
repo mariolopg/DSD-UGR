@@ -16,52 +16,58 @@
 #define SIG_PF void(*)(int)
 #endif
 
-static double *
+static operacion_result *
 _sumar_1 (sumar_1_argument *argp, struct svc_req *rqstp)
 {
 	return (sumar_1_svc(argp->arg1, argp->arg2, rqstp));
 }
 
-static double *
+static operacion_result *
 _restar_1 (restar_1_argument *argp, struct svc_req *rqstp)
 {
 	return (restar_1_svc(argp->arg1, argp->arg2, rqstp));
 }
 
-static double *
+static operacion_result *
 _multiplicar_1 (multiplicar_1_argument *argp, struct svc_req *rqstp)
 {
 	return (multiplicar_1_svc(argp->arg1, argp->arg2, rqstp));
 }
 
-static double *
+static operacion_result *
 _dividir_1 (dividir_1_argument *argp, struct svc_req *rqstp)
 {
 	return (dividir_1_svc(argp->arg1, argp->arg2, rqstp));
 }
 
-static double *
+static operacion_result *
 _potencia_1 (potencia_1_argument *argp, struct svc_req *rqstp)
 {
 	return (potencia_1_svc(argp->arg1, argp->arg2, rqstp));
 }
 
-static double *
+static operacion_result *
 _raiz_1 (raiz_1_argument *argp, struct svc_req *rqstp)
 {
 	return (raiz_1_svc(argp->arg1, argp->arg2, rqstp));
 }
 
-static double *
+static operacion_result *
 _factorial_1 (double  *argp, struct svc_req *rqstp)
 {
 	return (factorial_1_svc(*argp, rqstp));
 }
 
-static double *
+static operacion_result *
 _modulo_1 (modulo_1_argument *argp, struct svc_req *rqstp)
 {
 	return (modulo_1_svc(argp->arg1, argp->arg2, rqstp));
+}
+
+static operacion_result *
+_vabsoluto_1 (double  *argp, struct svc_req *rqstp)
+{
+	return (vabsoluto_1_svc(*argp, rqstp));
 }
 
 static void
@@ -76,6 +82,7 @@ calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		raiz_1_argument raiz_1_arg;
 		double factorial_1_arg;
 		modulo_1_argument modulo_1_arg;
+		double vabsoluto_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -88,50 +95,56 @@ calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 
 	case sumar:
 		_xdr_argument = (xdrproc_t) xdr_sumar_1_argument;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
 		local = (char *(*)(char *, struct svc_req *)) _sumar_1;
 		break;
 
 	case restar:
 		_xdr_argument = (xdrproc_t) xdr_restar_1_argument;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
 		local = (char *(*)(char *, struct svc_req *)) _restar_1;
 		break;
 
 	case multiplicar:
 		_xdr_argument = (xdrproc_t) xdr_multiplicar_1_argument;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
 		local = (char *(*)(char *, struct svc_req *)) _multiplicar_1;
 		break;
 
 	case dividir:
 		_xdr_argument = (xdrproc_t) xdr_dividir_1_argument;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
 		local = (char *(*)(char *, struct svc_req *)) _dividir_1;
 		break;
 
 	case potencia:
 		_xdr_argument = (xdrproc_t) xdr_potencia_1_argument;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
 		local = (char *(*)(char *, struct svc_req *)) _potencia_1;
 		break;
 
 	case raiz:
 		_xdr_argument = (xdrproc_t) xdr_raiz_1_argument;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
 		local = (char *(*)(char *, struct svc_req *)) _raiz_1;
 		break;
 
 	case factorial:
 		_xdr_argument = (xdrproc_t) xdr_double;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
 		local = (char *(*)(char *, struct svc_req *)) _factorial_1;
 		break;
 
 	case modulo:
 		_xdr_argument = (xdrproc_t) xdr_modulo_1_argument;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
 		local = (char *(*)(char *, struct svc_req *)) _modulo_1;
+		break;
+
+	case vAbsoluto:
+		_xdr_argument = (xdrproc_t) xdr_double;
+		_xdr_result = (xdrproc_t) xdr_operacion_result;
+		local = (char *(*)(char *, struct svc_req *)) _vabsoluto_1;
 		break;
 
 	default:

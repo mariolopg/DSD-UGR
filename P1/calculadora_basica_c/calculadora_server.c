@@ -6,102 +6,115 @@
 
 #include "calculadora.h"
 
-double *
+operacion_result *
 sumar_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
-	static double  result;
+	static operacion_result  result;
 
-	result = (arg1 + arg2);
+	result.operacion_result_u.result = (arg1 + arg2);
 
-	printf("La operacion realizada es una suma --> %lf + %lf = %lf\n\n", arg1, arg2, result);
+	printf("La operacion realizada es una suma --> %lf + %lf = %lf\n\n", arg1, arg2, result.operacion_result_u.result);
 
 	return &result;
 }
 
-double *
+operacion_result *
 restar_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
-	static double  result;
+	static operacion_result  result;
 
-	result = (arg1 - arg2);
+	result.operacion_result_u.result = (arg1 - arg2);
 
-	printf("La operacion realizada es una resta --> %lf - %lf = %lf\n\n", arg1, arg2, result);
+	printf("La operacion realizada es una resta --> %lf - %lf = %lf\n\n", arg1, arg2, result.operacion_result_u.result);
 
 	return &result;
 }
 
-double *
+operacion_result *
 multiplicar_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
-	static double  result;
+	static operacion_result  result;
 
-	result = (arg1 * arg2);
+	result.operacion_result_u.result = (arg1 * arg2);
 
-	printf("La operacion realizada es una multiplicacion --> %lf * %lf = %lf\n\n", arg1, arg2, result);
+	printf("La operacion realizada es una multiplicacion --> %lf * %lf = %lf\n\n", arg1, arg2, result.operacion_result_u.result);
 
 	return &result;
 }
 
-double *
+operacion_result *
 dividir_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
-	static double  result;
+	static operacion_result  result;
 
-	result = (arg1 / arg2);
+	result.operacion_result_u.result = (arg1 / arg2);
 
-	printf("La operacion realizada es una division --> %lf / %lf = %lf\n\n", arg1, arg2, result);
+	printf("La operacion realizada es una division --> %lf / %lf = %lf\n\n", arg1, arg2, result.operacion_result_u.result);
 
 	return &result;
 }
 
-double *
+operacion_result *
 potencia_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
-	static double  result;
-	double calculo = 1.0;
+	static operacion_result  result;
 
-	result = pow(arg1, arg2);
+	result.operacion_result_u.result = pow(arg1, arg2);
 
-	printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", arg1, arg2, result);
+	printf("La operacion realizada es una potencia --> %lf ^ %lf = %lf\n\n", arg1, arg2, result.operacion_result_u.result);
 
 	return &result;
 }
 
-double *
+operacion_result *
 raiz_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
-	static double  result;
+	static operacion_result  result;
 
-	result = pow(arg2, 1.0 / arg1);
-	printf("La operacion realizada es una raiz --> %lf √ %lf = %lf\n\n", arg1, arg2, result);
+	result.operacion_result_u.result = pow(arg2, 1.0 / arg1);
+	printf("La operacion realizada es una raiz --> %lf √ %lf = %lf\n\n", arg1, arg2, result.operacion_result_u.result);
 
 	return &result;
 }
 
-double *
+operacion_result *
 factorial_1_svc(double arg1,  struct svc_req *rqstp)
 {
-	static double  result;
+	static operacion_result  result;
 
 	double calculo = arg1;
 
 	for(int i = arg1 - 1; i >= 2; i--)
 		calculo = calculo * i;
-
-	result = calculo;
-
-	printf("La operacion realizada es un factorial --> %lf! = %lf\n\n", arg1, result);
+	
+	result.operacion_result_u.result = calculo;
+	printf("La operacion realizada es un factorial --> %lf! = %lf\n\n", arg1, result.operacion_result_u.result);
 
 	return &result;
 }
 
-double *
+operacion_result *
 modulo_1_svc(double arg1, double arg2,  struct svc_req *rqstp)
 {
-	static double  result;
+	static operacion_result  result;
 
-	result = (int) arg1 % (int) arg2;
-	printf("La operacion realizada es un modulo --> %lf %% %lf = %lf\n\n", arg1, arg2, result);
+	result.operacion_result_u.result = (int) arg1 % (int) arg2;
+	printf("La operacion realizada es un modulo --> %lf %% %lf = %lf\n\n", arg1, arg2, result.operacion_result_u.result);
+
+	return &result;
+}
+
+operacion_result *
+vabsoluto_1_svc(double arg1,  struct svc_req *rqstp)
+{
+	static operacion_result  result;
+
+	result.operacion_result_u.result = arg1;
+
+	if(arg1 < 0)
+		result.operacion_result_u.result = -arg1;
+
+	printf("La operacion realizada es un valor absoluto --> abs(%lf) = %lf\n\n", arg1, result.operacion_result_u.result);
 
 	return &result;
 }

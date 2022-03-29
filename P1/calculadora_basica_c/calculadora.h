@@ -16,6 +16,14 @@ extern "C" {
 #endif
 
 
+struct operacion_result {
+	int errno;
+	union {
+		double result;
+	} operacion_result_u;
+};
+typedef struct operacion_result operacion_result;
+
 struct sumar_1_argument {
 	double arg1;
 	double arg2;
@@ -63,62 +71,69 @@ typedef struct modulo_1_argument modulo_1_argument;
 
 #if defined(__STDC__) || defined(__cplusplus)
 #define sumar 1
-extern  double * sumar_1(double , double , CLIENT *);
-extern  double * sumar_1_svc(double , double , struct svc_req *);
+extern  operacion_result * sumar_1(double , double , CLIENT *);
+extern  operacion_result * sumar_1_svc(double , double , struct svc_req *);
 #define restar 2
-extern  double * restar_1(double , double , CLIENT *);
-extern  double * restar_1_svc(double , double , struct svc_req *);
+extern  operacion_result * restar_1(double , double , CLIENT *);
+extern  operacion_result * restar_1_svc(double , double , struct svc_req *);
 #define multiplicar 3
-extern  double * multiplicar_1(double , double , CLIENT *);
-extern  double * multiplicar_1_svc(double , double , struct svc_req *);
+extern  operacion_result * multiplicar_1(double , double , CLIENT *);
+extern  operacion_result * multiplicar_1_svc(double , double , struct svc_req *);
 #define dividir 4
-extern  double * dividir_1(double , double , CLIENT *);
-extern  double * dividir_1_svc(double , double , struct svc_req *);
+extern  operacion_result * dividir_1(double , double , CLIENT *);
+extern  operacion_result * dividir_1_svc(double , double , struct svc_req *);
 #define potencia 5
-extern  double * potencia_1(double , double , CLIENT *);
-extern  double * potencia_1_svc(double , double , struct svc_req *);
+extern  operacion_result * potencia_1(double , double , CLIENT *);
+extern  operacion_result * potencia_1_svc(double , double , struct svc_req *);
 #define raiz 6
-extern  double * raiz_1(double , double , CLIENT *);
-extern  double * raiz_1_svc(double , double , struct svc_req *);
+extern  operacion_result * raiz_1(double , double , CLIENT *);
+extern  operacion_result * raiz_1_svc(double , double , struct svc_req *);
 #define factorial 7
-extern  double * factorial_1(double , CLIENT *);
-extern  double * factorial_1_svc(double , struct svc_req *);
+extern  operacion_result * factorial_1(double , CLIENT *);
+extern  operacion_result * factorial_1_svc(double , struct svc_req *);
 #define modulo 8
-extern  double * modulo_1(double , double , CLIENT *);
-extern  double * modulo_1_svc(double , double , struct svc_req *);
+extern  operacion_result * modulo_1(double , double , CLIENT *);
+extern  operacion_result * modulo_1_svc(double , double , struct svc_req *);
+#define vAbsoluto 9
+extern  operacion_result * vabsoluto_1(double , CLIENT *);
+extern  operacion_result * vabsoluto_1_svc(double , struct svc_req *);
 extern int calculadora_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
 #define sumar 1
-extern  double * sumar_1();
-extern  double * sumar_1_svc();
+extern  operacion_result * sumar_1();
+extern  operacion_result * sumar_1_svc();
 #define restar 2
-extern  double * restar_1();
-extern  double * restar_1_svc();
+extern  operacion_result * restar_1();
+extern  operacion_result * restar_1_svc();
 #define multiplicar 3
-extern  double * multiplicar_1();
-extern  double * multiplicar_1_svc();
+extern  operacion_result * multiplicar_1();
+extern  operacion_result * multiplicar_1_svc();
 #define dividir 4
-extern  double * dividir_1();
-extern  double * dividir_1_svc();
+extern  operacion_result * dividir_1();
+extern  operacion_result * dividir_1_svc();
 #define potencia 5
-extern  double * potencia_1();
-extern  double * potencia_1_svc();
+extern  operacion_result * potencia_1();
+extern  operacion_result * potencia_1_svc();
 #define raiz 6
-extern  double * raiz_1();
-extern  double * raiz_1_svc();
+extern  operacion_result * raiz_1();
+extern  operacion_result * raiz_1_svc();
 #define factorial 7
-extern  double * factorial_1();
-extern  double * factorial_1_svc();
+extern  operacion_result * factorial_1();
+extern  operacion_result * factorial_1_svc();
 #define modulo 8
-extern  double * modulo_1();
-extern  double * modulo_1_svc();
+extern  operacion_result * modulo_1();
+extern  operacion_result * modulo_1_svc();
+#define vAbsoluto 9
+extern  operacion_result * vabsoluto_1();
+extern  operacion_result * vabsoluto_1_svc();
 extern int calculadora_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
+extern  bool_t xdr_operacion_result (XDR *, operacion_result*);
 extern  bool_t xdr_sumar_1_argument (XDR *, sumar_1_argument*);
 extern  bool_t xdr_restar_1_argument (XDR *, restar_1_argument*);
 extern  bool_t xdr_multiplicar_1_argument (XDR *, multiplicar_1_argument*);
@@ -128,6 +143,7 @@ extern  bool_t xdr_raiz_1_argument (XDR *, raiz_1_argument*);
 extern  bool_t xdr_modulo_1_argument (XDR *, modulo_1_argument*);
 
 #else /* K&R C */
+extern bool_t xdr_operacion_result ();
 extern bool_t xdr_sumar_1_argument ();
 extern bool_t xdr_restar_1_argument ();
 extern bool_t xdr_multiplicar_1_argument ();

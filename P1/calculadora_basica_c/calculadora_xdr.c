@@ -6,6 +6,26 @@
 #include "calculadora.h"
 
 bool_t
+xdr_operacion_result (XDR *xdrs, operacion_result *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->errno))
+		 return FALSE;
+	switch (objp->errno) {
+	case 0:
+		 if (!xdr_double (xdrs, &objp->operacion_result_u.result))
+			 return FALSE;
+		break;
+	case 1:
+		break;
+	default:
+		return FALSE;
+	}
+	return TRUE;
+}
+
+bool_t
 xdr_sumar_1_argument (XDR *xdrs, sumar_1_argument *objp)
 {
 	 if (!xdr_double (xdrs, &objp->arg1))
