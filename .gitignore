@@ -12,7 +12,7 @@ __pycache__/
 
 # JAVA
 *.class
-/P1/calculadora_basica_py/gen-java/servidor/nbproject/private/
-/P1/calculadora_basica_py/gen-java/servidor/build/
+/P1/calculadora_py_java/gen-java/servidor/nbproject/private/
+/P1/calculadora_py_java/gen-java/servidor/build/
 /P1/calculadora_py_java/gen-java/servidor/dist/
 built-jar.properties
