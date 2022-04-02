@@ -83,6 +83,10 @@ while True:
         print("Introduzca el indice");
         n1 = float(input())
 
+        while(n1 < 2):
+            print("Error. Introduzca un indice mayor o igual a dos")
+            n1 = float(input())
+
         print("Introduzca el radicando");
         n2 = float(input())
 
@@ -94,6 +98,10 @@ while True:
         n1 = float(input())
 
         if(operador == "!"):
+            while (n1 < 0):
+                print("Error. Por favor introduzca un valor mayor o igual a uno")
+                n1 = float(input())
+                
             result = client.factorial(n1)
             print("La operacion realizada es una factorial --> " + str(n1) + "! = " + str(result))
 

@@ -158,13 +158,26 @@ main (int argc, char *argv[])
 			printf("Introduzca el indice\n");
 			scanf("%lf", &num1);
 
+			while(num1 < 2){
+				printf("Error. Introduzca un indice mayor o igual a dos\n");
+				scanf("%lf", &num1);
+			}
+
 			printf("Introduzca el radicando\n");
 			scanf("%lf", &num2);
+
 			break;
 
 		case '!': case 'a':
 			printf("Introduzca el numero\n");
 			scanf("%lf", &num1);
+
+			if(operador == '!'){
+				while(num1 < 1){
+					printf("Error. Introduzca un numero mayor o igual a uno\n");
+					scanf("%lf", &num1);
+				}
+			}
 			break;
 		}
 		
