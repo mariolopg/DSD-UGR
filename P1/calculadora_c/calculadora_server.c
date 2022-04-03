@@ -5,6 +5,8 @@
  */
 
 #include "calculadora.h"
+#include <stdio.h>
+#include <math.h>
 
 operacion_result *
 sumar_1_svc(double arg1, double arg2,  struct svc_req *rqstp)

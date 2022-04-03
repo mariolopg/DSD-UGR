@@ -5,7 +5,7 @@
  */
 
 #include "calculadora.h"
-
+#include <stdio.h>
 
 void
 calculadora_1(char *host, double num1, double num2, char operador)
@@ -144,6 +144,13 @@ main (int argc, char *argv[])
 			
 			printf("Introduzca el segundo numero\n");
 			scanf("%lf", &num2);
+
+			if(operador == '/')
+				while(num2 == 0){
+					printf("Error. Introduzca un divisor distinto de cero\n");
+					scanf("%lf", &num2);
+				}
+			
 			break;
 		
 		case '^':

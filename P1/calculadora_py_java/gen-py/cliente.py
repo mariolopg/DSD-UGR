@@ -62,6 +62,9 @@ while True:
             print("La operacion realizada es una multiplicacion --> " + str(n1) + " * " + str(n2) + " = " + str(result))
 
         if(operador == "/"):
+            while n2 == 0:
+                print("Error. Introduzca un divisor distinto de 0");
+                n2 = float(input())
             result = client.division(n1, n2)
             print("La operacion realizada es una division --> " + str(n1) + " / " + str(n2) + " = " + str(result))
         
