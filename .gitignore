@@ -16,3 +16,6 @@ __pycache__/
 /P1/calculadora_py_java/gen-java/servidor/build/
 /P1/calculadora_py_java/gen-java/servidor/dist/
 built-jar.properties
+
+# LATEX
+build/
