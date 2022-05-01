@@ -19,17 +19,21 @@ public class cliente {
             
             char operacion = ' ';
             int donacion = 0;
-            Integer id = -1;
+            boolean sesionIniciada = false;
+            String userName = "";
+            String password = "";
             Scanner sc = new Scanner(System.in);
 
             while(true){
                 System.out.println("\n***************************************");
                 System.out.println("*        Seleccionar operación        *");
                 System.out.println("***************************************");
-                System.out.println("r -> registro");
-                System.out.println("d -> donar");
-                System.out.println("t -> total donaciones");
-                System.out.println("s -> salir");
+                System.out.println("*            i -> iniciar sesion      *");
+                System.out.println("*            r -> registro            *");
+                System.out.println("*            d -> donar               *");
+                System.out.println("*            t -> total donaciones    *");
+                System.out.println("*            s -> salir               *");
+                System.out.println("***************************************");
                 
                 operacion = sc.next().charAt(0);
 
@@ -39,10 +43,44 @@ public class cliente {
                 }
 
                 switch (operacion) {
+                    case 'i':
+                        System.out.println("\nOperacion seleccionada -> iniciar sesion");
+                        
+                        if(!sesionIniciada){
+                            System.out.print("\nNombre de usuario: ");
+                            sc.nextLine();
+                            userName = sc.nextLine();
+
+                            System.out.print("");
+                            System.out.print("\nContraseña: ");
+                            password = sc.nextLine();
+                            
+                            sesionIniciada = donaciones.iniciarSesion(userName, password);
+                        }
+                        
+                        if(sesionIniciada)
+                            System.out.println("\nSesión iniciada correctamente");  
+                        else
+                            System.out.println("\nUsuario o contraseña incorrectos");  
+
+                        
+                        break;
                     case 'r':
                         System.out.println("\nOperacion seleccionada -> registro");
-                        id = donaciones.registrar(id);
-                        System.out.println("Id de cliente: " + id);
+                        System.out.print("\nNombre de usuario: ");
+                        sc.nextLine();
+                        userName = sc.nextLine();
+
+                        System.out.print("\nContraseña: ");
+                        password = sc.nextLine();
+
+                        
+                        donaciones.registrar(userName, password);
+                        sesionIniciada = donaciones.iniciarSesion(userName, password);
+
+                        if(sesionIniciada)
+                            System.out.println("\nSesión iniciada correctamente");  
+
                         break;
                     case 't':
                         System.out.println("\nOperacion seleccionada -> total donaciones");
@@ -53,7 +91,7 @@ public class cliente {
                         System.out.println("\nOperacion seleccionada -> donar");
                         System.out.print("Cantidad a donar: ");
                         donacion = sc.nextInt();
-                        if(donaciones.donar(id, donacion))
+                        if(donaciones.donar(userName, password, donacion))
                             System.out.print("Donación de " + donacion + "€ realizada correctamente");
                         else
                             if(donacion < 0)
