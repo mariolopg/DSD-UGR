@@ -2,6 +2,8 @@ import java.net.MalformedURLException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.*;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class cliente {
@@ -15,7 +17,18 @@ public class cliente {
         try {
             // Crea el stub para el cliente especificando el nombre del servidor
             Registry mireg = LocateRegistry.getRegistry("127.0.0.1", 1099);
-            idonaciones donaciones = (idonaciones) mireg.lookup("donaciones");
+            ArrayList<interfazClienteServidor> servidores = new ArrayList<interfazClienteServidor>();
+
+            interfazClienteServidor donaciones1 = (interfazClienteServidor) mireg.lookup("donaciones_rep1");
+            servidores.add(donaciones1);
+            interfazClienteServidor donaciones2 = (interfazClienteServidor) mireg.lookup("donaciones_rep2");
+            servidores.add(donaciones2);
+
+            Random random = new Random();
+
+            int numServer = random.nextInt(servidores.size() - 1);
+
+            interfazClienteServidor donaciones = servidores.get(numServer);
             
             char operacion = ' ';
             int donacion = 0;
@@ -32,6 +45,7 @@ public class cliente {
                 System.out.println("*            r -> registro            *");
                 System.out.println("*            d -> donar               *");
                 System.out.println("*            t -> total donaciones    *");
+                System.out.println("*            c -> cerrar sesion       *");
                 System.out.println("*            s -> salir               *");
                 System.out.println("***************************************");
                 
@@ -55,7 +69,7 @@ public class cliente {
                             System.out.print("\nContraseña: ");
                             password = sc.nextLine();
                             
-                            sesionIniciada = donaciones.iniciarSesion(userName, password);
+                            sesionIniciada = donaciones.iniciarSesionCS(userName, password);
                         }
                         
                         if(sesionIniciada)
@@ -75,8 +89,8 @@ public class cliente {
                         password = sc.nextLine();
 
                         
-                        donaciones.registrar(userName, password);
-                        sesionIniciada = donaciones.iniciarSesion(userName, password);
+                        donaciones.registrarCS(userName, password);
+                        sesionIniciada = donaciones.iniciarSesionCS(userName, password);
 
                         if(sesionIniciada)
                             System.out.println("\nSesión iniciada correctamente");  
@@ -84,15 +98,15 @@ public class cliente {
                         break;
                     case 't':
                         System.out.println("\nOperacion seleccionada -> total donaciones");
-                        System.out.println("Total donado: " + donaciones.donado() + "€");
+                        System.out.println("Total donado: " + donaciones.donadoCS() + "€");
                         break;
 
                     case 'd':
                         System.out.println("\nOperacion seleccionada -> donar");
                         System.out.print("Cantidad a donar: ");
                         donacion = sc.nextInt();
-                        if(donaciones.donar(userName, password, donacion))
-                            System.out.print("Donación de " + donacion + "€ realizada correctamente");
+                        if(donaciones.donarCS(userName, password, donacion))
+                            System.out.println("Donación de " + donacion + "€ realizada correctamente");
                         else
                             if(donacion < 0)
                                 System.out.println("\nERROR -> intento de donación negativa");
@@ -100,11 +114,18 @@ public class cliente {
                                 System.out.println("\nERROR -> registro necesario para donar");
                         break;
 
+                    case 'c':
+                        sesionIniciada = false;
+                        userName = "";
+                        password = "";
+                        System.out.println("\nSesión cerrada correctamente");
+                        break;
                     default:
                         System.out.println("\nERROR -> carácter inválido detectado");
                         break;
                 
                 }
+                System.out.println(" ");
             }
               
         } catch (NotBoundException | RemoteException e) {
