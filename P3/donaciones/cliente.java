@@ -9,6 +9,11 @@ import java.util.Scanner;
 public class cliente {
 
     public static void main(String[] args) {
+        String idReplica = "donaciones_rep1";
+
+        if(args.length == 1){
+            idReplica = args[0];
+        }
 
         // Crea e instala el gestor de seguridad
         if (System.getSecurityManager() == null) {
@@ -16,19 +21,9 @@ public class cliente {
         }
         try {
             // Crea el stub para el cliente especificando el nombre del servidor
+            
             Registry mireg = LocateRegistry.getRegistry("127.0.0.1", 1099);
-            ArrayList<interfazClienteServidor> servidores = new ArrayList<interfazClienteServidor>();
-
-            interfazClienteServidor donaciones1 = (interfazClienteServidor) mireg.lookup("donaciones_rep1");
-            servidores.add(donaciones1);
-            interfazClienteServidor donaciones2 = (interfazClienteServidor) mireg.lookup("donaciones_rep2");
-            servidores.add(donaciones2);
-
-            Random random = new Random();
-
-            int numServer = random.nextInt(servidores.size() - 1);
-
-            interfazClienteServidor donaciones = servidores.get(numServer);
+            interfazClienteServidor donaciones = (interfazClienteServidor) mireg.lookup(idReplica);
             
             char operacion = ' ';
             int donacion = 0;
