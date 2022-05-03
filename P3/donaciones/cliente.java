@@ -2,8 +2,6 @@ import java.net.MalformedURLException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.*;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class cliente {
@@ -24,6 +22,8 @@ public class cliente {
             
             Registry mireg = LocateRegistry.getRegistry("127.0.0.1", 1099);
             interfazClienteServidor donaciones = (interfazClienteServidor) mireg.lookup(idReplica);
+
+            System.out.println("Conectado a réplica con id: " + idReplica);
             
             char operacion = ' ';
             int donacion = 0;
@@ -33,16 +33,18 @@ public class cliente {
             Scanner sc = new Scanner(System.in);
 
             while(true){
-                System.out.println("\n***************************************");
-                System.out.println("*        Seleccionar operación        *");
-                System.out.println("***************************************");
-                System.out.println("*            i -> iniciar sesion      *");
-                System.out.println("*            r -> registro            *");
-                System.out.println("*            d -> donar               *");
-                System.out.println("*            t -> total donaciones    *");
-                System.out.println("*            c -> cerrar sesion       *");
-                System.out.println("*            s -> salir               *");
-                System.out.println("***************************************");
+                System.out.println("\n*******************************************");
+                System.out.println("*          Seleccionar operación          *");
+                System.out.println("*******************************************");
+                System.out.println("*            i -> iniciar sesion          *");
+                System.out.println("*            r -> registro                *");
+                System.out.println("*            d -> donar                   *");
+                System.out.println("*            t -> total donaciones        *");
+                System.out.println("*            m -> mis donaciones          *");
+                System.out.println("*            n -> mi numero donaciones    *");
+                System.out.println("*            c -> cerrar sesion           *");
+                System.out.println("*            s -> salir                   *");
+                System.out.println("*******************************************");
                 
                 operacion = sc.next().charAt(0);
 
@@ -93,7 +95,15 @@ public class cliente {
                         break;
                     case 't':
                         System.out.println("\nOperacion seleccionada -> total donaciones");
-                        System.out.println("Total donado: " + donaciones.donadoCS() + "€");
+                        System.out.println("Total donado: " + donaciones.donadoCS(userName, password) + "€");
+                        break;
+
+                    case 'm':
+                        System.out.println("\nHas donado " + donaciones.misDonacionesCS(userName, password) + "€");
+                        break;
+
+                    case 'n':
+                        System.out.println("\nHas donado " + donaciones.numDonacionesCS(userName, password) + " veces");
                         break;
 
                     case 'd':
