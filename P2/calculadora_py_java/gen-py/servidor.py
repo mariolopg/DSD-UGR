@@ -49,9 +49,9 @@ class CalculadoraHandler:
 
     def factorial(self, n1):
         result = 1
-
-        for i in range(2, int(n1) - 1):
-            result = result * i * (i + 1)
+    # Modificado por error en cálculo
+        for i in range(2, int(n1) + 1):
+            result = result * i
 
         print("La operacion realizada es una factorial --> " + str(n1) + "! = " + str(result))
         return result
