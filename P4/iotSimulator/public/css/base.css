@@ -1,0 +1,119 @@
+@import url(login.css);
+@import url(app.css);
+@import url(controlador.css);
+
+:root {
+    --main-color: #0090b0;
+    --secondary-color: #015c70;
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    font-family: Poppins-Regular, sans-serif;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+input:focus:-moz-placeholder {
+    color: transparent;
+}
+
+input:focus::-moz-placeholder {
+    color: transparent;
+}
+
+input:focus:-ms-input-placeholder {
+    color: transparent;
+}
+
+button {
+    border: none;
+    background: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: var(--main-color);
+    padding: 5px 9px;
+    border-radius: 10px;
+
+}
+
+.wrap-ul {
+    display: block;
+    margin: 20px 0px 20px 5px;
+}
+
+.ul-title {
+    color: var(--main-color);
+    font-size:larger;
+    font-weight: bold;
+}
+
+li{
+    list-style-type: none;
+    display: flex;
+    align-content: center;
+    margin: 5px;
+}
+
+li p{
+    margin-left: 5px;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.container-body {
+    width: 100%;
+    min-height: 100vh;
+    max-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: #f2f2f2;
+}
+
+.wrap-body {
+    min-height: 95vh;
+    max-height: 95vh;
+    width: 500px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 55px 55px 33px 55px;
+
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+}

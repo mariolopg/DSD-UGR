@@ -1,0 +1,40 @@
+@import url(home.css);
+@import url(controlador.css);
+@import url(historico.css);
+
+.navbar {
+    overflow: hidden;
+    display: flex;
+    align-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    margin: 0px auto;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+    border-radius: 10px;
+}
+
+.navbar a.active {
+    text-decoration: solid underline var(--main-color) 4px;
+    color: black;
+    border-radius: 10px;
+}
+
+.app-info {
+    max-height: 550px;
+    margin: 0px 0px 20px 5px;
+    overflow-y: auto;
+}
