@@ -2,6 +2,8 @@
 .DS_Store
 .vscode/
 pdfs/
+mongo.sh
+iniciarNavegador.sh
 
 # C
 *.o
