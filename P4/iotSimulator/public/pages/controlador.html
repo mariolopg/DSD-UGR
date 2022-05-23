@@ -4,7 +4,7 @@
 <head>
 	<title>Controlador</title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<link rel="stylesheet" type="text/css" href="public/css/base.css">
 </head>
 
 <body>
@@ -13,24 +13,24 @@
 			<div class="wrap-body">
                 <h2>IOT Simulation System</h2>
 				<div class="navbar">
-                    <a href="./home.html">Información</a>
-                    <a href="./controlador.html" class="active">Controlador</a>
-                    <a href="./historico.html" >Histórico</a>
+                    <a href="home">Información</a>
+                    <a href="controlador" class="active">Controlador</a>
+                    <a href="historico">Histórico</a>
                 </div>
 				<div class="app-info">
 					<div class="wrap-ul">
 						<span class="ul-title">Dispositivos</span>
 						<ul>
 							<li>
-								<label class="switch" id="switch-aire">
-									<input type="checkbox">
+								<label class="switch">
+									<input type="checkbox" id="switch-aire">
 									<span class="switch-slider round"></span>
 								</label>
 								Aire acondicionado
 							</li>
 							<li>
-								<label class="switch" id="switch-persiana">
-									<input type="checkbox">
+								<label class="switch">
+									<input type="checkbox" id="switch-persiana">
 									<span class="switch-slider round"></span>
 								</label>
 								Persiana
@@ -55,12 +55,12 @@
 							</li>
 						</ul>
 					</div>
-					<!-- Boton de cambiar -->
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./public/js/controlador.js"></script>
 
 </html>

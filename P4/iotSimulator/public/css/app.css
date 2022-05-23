@@ -34,7 +34,8 @@
 }
 
 .app-info {
-    max-height: 550px;
+    /* max-height: 550px; */
+    max-height: fit-content;
     margin: 0px 0px 20px 5px;
     overflow-y: auto;
 }

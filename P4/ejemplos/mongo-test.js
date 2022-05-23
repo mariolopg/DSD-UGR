@@ -8,8 +8,6 @@ var MongoClient = require('mongodb').MongoClient;
 var MongoServer = require('mongodb').Server;
 var mimeTypes = { "html": "text/html", "jpeg": "image/jpeg", "jpg": "image/jpeg", "png": "image/png", "js": "text/javascript", "css": "text/css", "swf": "application/x-shockwave-flash"};
 
-var execSync = require('child_process').execSync;
-
 var httpServer = http.createServer(
 	function(request, response) {
 		var uri = url.parse(request.url).pathname;
@@ -46,8 +44,6 @@ var httpServer = http.createServer(
 MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true }, function(err, db) {
 	httpServer.listen(8080);
 	var io = socketio(httpServer);
-
-	execSync('mongo pruebaBaseDatos --eval "db.dropDatabase()"', { encoding: 'utf-8' });
 
 	var dbo = db.db("pruebaBaseDatos");
 	dbo.createCollection("test", function(err, collection){

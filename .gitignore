@@ -22,3 +22,6 @@ built-jar.properties
 
 # LATEX
 build/
+
+# NodeJS
+node_modules
