@@ -5,13 +5,14 @@
 	<title>Histórico</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="public/css/base.css">
+	<script src="https://kit.fontawesome.com/35f230cea2.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 	<div class="container">
 		<div class="container-body">
 			<div class="wrap-body">
-                <h2>IOT Simulation System</h2>
+                <h2>IOT Simulator System</h2>
 				<div class="navbar">
                     <a href="home">Información</a>
                     <a href="controlador">Controlador</a>
@@ -19,23 +20,23 @@
                 </div>
 				<div class="app-info">
 					<div class="wrap-ul">
-						<span class="ul-title">Aire acondicinado</span>
-						<ul id="historico-ac">
+						<span class="ul-title puntero" id="div-ac">Aire acondicinado <i class="fa-solid fa-caret-right" id="div-ac-arrow"></i></span>
+						<ul class="none" id="historico-ac">
 						</ul>
 					</div>
 					<div class="wrap-ul">
-						<span class="ul-title">Persiana</span>
-						<ul id="historico-persiana">
+						<span class="ul-title puntero" id="div-persiana">Persiana <i class="fa-solid fa-caret-right" id="div-persiana-arrow"></i></span>
+						<ul class="none" id="historico-persiana">
 						</ul>
 					</div>
 					<div class="wrap-ul">
-						<span class="ul-title">Temperatura</span>
-						<ul id="historico-temperatura">
+						<span class="ul-title puntero" id="div-temperatura">Temperatura <i class="fa-solid fa-caret-right" id="div-temperatura-arrow"></i></span>
+						<ul class="none" id="historico-temperatura">
 						</ul>
 					</div>
 					<div class="wrap-ul">
-						<span class="ul-title">Luminosidad</span>
-						<ul id="historico-temperatura">
+						<span class="ul-title puntero" id="div-luminosidad">Luminosidad <i class="fa-solid fa-caret-right" id="div-luminosidad-arrow"></i></span>
+						<ul class="none" id="historico-luminosidad">
 						</ul>
 					</div>
 				</div>
@@ -45,4 +46,5 @@
 
 </body>
 <script src="/socket.io/socket.io.js"></script>
+<script src="./public/js/historico.js"></script>
 </html>

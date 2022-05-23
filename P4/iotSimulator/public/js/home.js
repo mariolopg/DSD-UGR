@@ -10,21 +10,20 @@ function setColor(id, color) {
 
 // Socket
 socket.on("switch-aire", function (data) {
-    var estado = "apagado";
+    var estado = data.valor;
     setColor("estado-aire", "rgb(208, 0, 0)")
 
-    if(data == "on"){
-        estado = "encendido";
+    if(estado == "encendido"){
         setColor("estado-aire", "green")
     }
     setEstado("estado-aire", estado)
 })
 
 socket.on("switch-persiana", function (data) {
-    var estado = "apagado";
+    var estado = data.valor;
     setColor("estado-persiana", "rgb(208, 0, 0)");
 
-    if(data == "on"){
+    if(estado == "encendido"){
         estado = "encendido";
         setColor("estado-persiana", "green")
     }
@@ -32,9 +31,9 @@ socket.on("switch-persiana", function (data) {
 })
 
 socket.on("slider-temperatura", function (data) {
-    setEstado("estado-temperatura", data);
+    setEstado("estado-temperatura", data.valor);
 })
 
 socket.on("slider-luminosidad", function (data) {
-    setEstado("estado-luminosidad", data);
+    setEstado("estado-luminosidad", data.valor);
 })

@@ -7,7 +7,7 @@ class DbServer {
         this.dataBase = null;      
     }
 
-    getDB(){
+    static getDB(){
         return this.dataBase;
     }
 
@@ -38,6 +38,13 @@ class DbServer {
                 if(err) throw err;
                 console.log("Tabla " + nombre + " creada");
             })
+    }
+
+    async find(nombre){
+        var mysort = { time: -1 };
+        var data = await this.dataBase.collection(nombre).find().sort(mysort).toArray();
+        
+        return data[0];
     }
 
     async insertar(nombre, valores){

@@ -67,6 +67,10 @@ h2 {
     color: var(--main-color);
     font-size:larger;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin-right: 10px;
 }
 
 li{
@@ -151,4 +155,12 @@ li p{
 
 #volver-button {
     margin-top: 20px;
+}
+
+.puntero {
+    cursor: pointer;
+}
+
+.none {
+    display: none;
 }

@@ -24,7 +24,36 @@ function slider(id){
     slider.oninput = function() {
         sliderOutPut.innerHTML = this.value;
         sendActualizacion(id, this.value)
+        switch (id) {
+            case "slider-temperatura":
+                    var status = getToggleStatus("switch-aire");
+                    if(this.value > 30 && status != "encendido"){
+                        umbralToggleSwitcher("switch-aire", true)
+                    }
+                    else if(this.value < 20 && status != "apagado"){
+                        umbralToggleSwitcher("switch-aire", false)
+                    }
+                break;
+        
+            case "slider-luminosidad":
+                    var status = getToggleStatus("switch-persiana");
+                    if(this.value > 80 && status != "apagado"){
+                        umbralToggleSwitcher("switch-persiana", false)
+                    }
+                    else if(this.value < 20 && status != "encendido"){
+                        umbralToggleSwitcher("switch-persiana", true)
+                    }
+                break;
+        }
     }
+}
+
+function umbralToggleSwitcher(id, status) {
+    setToggleStatus(id, status);
+    var modo = "apagado"
+    if(status)
+        modo = "encendido"
+    sendActualizacion(id, modo);
 }
 
 function setSlider(id, value) {
@@ -48,9 +77,9 @@ function togglePersiana() {
 
 function getToggleStatus(id) {
     var checked = document.getElementById(id).checked;
-    var status = "off";
+    var status = "apagado";
     if(checked)
-        status = "on";
+        status = "encendido";
 
     return status;
 }
@@ -63,22 +92,22 @@ function setToggleStatus(id, status) {
 // Socket
 socket.on("switch-aire", function (data) {
     var status = false;
-    if(data == "on")
+    if(data.valor == "encendido")
         status = true;
     setToggleStatus("switch-aire", status)
 })
 
 socket.on("switch-persiana", function (data) {
     var status = false;
-    if(data == "on")
+    if(data.valor == "encendido")
         status = true;
     setToggleStatus("switch-persiana", status)
 })
 
 socket.on("slider-temperatura", function (data) {
-    setSlider("slider-temperatura", data);
+    setSlider("slider-temperatura", data.valor);
 })
 
 socket.on("slider-luminosidad", function (data) {
-    setSlider("slider-luminosidad", data);
+    setSlider("slider-luminosidad", data.valor);
 })

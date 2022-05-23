@@ -39,7 +39,6 @@ class HttpServer{
         });
     }
 
-    //A partir de la url pasada, calcula la ruta de la pagina solicitada por el cliente
     page(uri){
         var ruta = "";
         var directorio = "public/pages/";
@@ -64,9 +63,10 @@ class HttpServer{
                 var peticion = uri.slice(1).split("/");
                 if(peticion[0] == 'controlador'){
                     ruta = directorio + "controlador.html";
-                    this.socketio.emit(peticion[1], peticion[2])
                     console.log(peticion[1] + " " + peticion[2])
-                    this.dataBase.insertar(peticion[1], {tiempo:getTimeStamp(), valor:peticion[2]})
+                    var evento = {time:getTimeStamp(), valor:peticion[2]};
+                    this.dataBase.insertar(peticion[1], evento)
+                    this.socketio.emit(peticion[1], evento)
                 }
                 else{
                     ruta = path.join(process.cwd(), uri);
