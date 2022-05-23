@@ -37,3 +37,16 @@ socket.on("slider-temperatura", function (data) {
 socket.on("slider-luminosidad", function (data) {
     setEstado("estado-luminosidad", data.valor);
 })
+
+socket.on("alerta", function (data) {
+    parseMsg(data);
+})
+
+function parseMsg(data) {
+    var pieces = data.split('%20');
+    var msg = "";
+    pieces.forEach(element => {
+        msg += element + " ";
+    });
+    alert(msg)
+}

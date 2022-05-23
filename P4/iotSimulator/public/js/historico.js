@@ -35,9 +35,6 @@ function rotateArrow(id, rotation) {
     document.getElementById(id).style.transform = rotation;
 }
 
-// Socket
-var socket = io();
-
 function createLi(text) {
     var li = document.createElement("li");
     li.innerText = text;
@@ -48,11 +45,9 @@ function addLi(id, li) {
     document.getElementById(id).prepend(li)
 }
 
-function processData(data) {
-    
-}
-
 // Socket
+var socket = io();
+
 socket.on("switch-aire", function (data) {
     addLi("historico-ac", createLi(data.time + " -> se ha " + data.valor))
 })
@@ -68,3 +63,26 @@ socket.on("slider-temperatura", function (data) {
 socket.on("slider-luminosidad", function (data) {
     addLi("historico-luminosidad", createLi(data.time + " -> Lum cambia a " + data.valor))
 })
+
+socket.on("historico-log", function (data) {
+    alerta("entra en socket")
+    addLi("historico-ac", createLi(data.time + " -> se ha " + data.valor))
+})
+
+function alerta(alerta) {
+    alerta(alerta)
+}
+
+socket.on("alerta", function (data) {
+    parseMsg(data);
+})
+
+function parseMsg(data) {
+    var pieces = data.split('%20');
+    var msg = "";
+    pieces.forEach(element => {
+        msg += element + " ";
+    });
+    alert(msg)
+}
+

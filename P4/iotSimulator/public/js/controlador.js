@@ -17,6 +17,14 @@ function sendActualizacion(id, value){
     httpRequest.send(null);
 }
 
+function sendAlerta(id, status, mensaje){
+    setToggleStatus(id, status);
+    var modo = "apagado"
+    if(status)
+        modo = "encendido"
+    sendActualizacion(id, (modo + mensaje));
+}
+
 // Slider
 function slider(id){
     var slider = document.getElementById(id);
@@ -28,20 +36,22 @@ function slider(id){
             case "slider-temperatura":
                     var status = getToggleStatus("switch-aire");
                     if(this.value > 30 && status != "encendido"){
-                        umbralToggleSwitcher("switch-aire", true)
+                        // umbralToggleSwitcher("switch-aire", true);
+                        sendAlerta("switch-aire", true, "/Se ha encendido el aire porque hace mucho calor");
                     }
                     else if(this.value < 20 && status != "apagado"){
-                        umbralToggleSwitcher("switch-aire", false)
+                        sendAlerta("switch-aire", false, "/Se ha apagado el aire porque hace mucho frio");
+
                     }
                 break;
         
             case "slider-luminosidad":
                     var status = getToggleStatus("switch-persiana");
                     if(this.value > 80 && status != "apagado"){
-                        umbralToggleSwitcher("switch-persiana", false)
+                        sendAlerta("switch-persiana", false, "/Se ha bajado la persiana porque entra demasiada luz");
                     }
                     else if(this.value < 20 && status != "encendido"){
-                        umbralToggleSwitcher("switch-persiana", true)
+                        sendAlerta("switch-persiana", true, "/Se ha subido la persiana porque entra muy poca luz");
                     }
                 break;
         }
@@ -111,3 +121,16 @@ socket.on("slider-temperatura", function (data) {
 socket.on("slider-luminosidad", function (data) {
     setSlider("slider-luminosidad", data.valor);
 })
+
+socket.on("alerta", function (data) {
+    parseMsg(data);
+})
+
+function parseMsg(data) {
+    var pieces = data.split('%20');
+    var msg = "";
+    pieces.forEach(element => {
+        msg += element + " ";
+    });
+    alert(msg)
+}

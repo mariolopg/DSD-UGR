@@ -11,8 +11,8 @@ class HttpServer{
         this.dataBase = dataBase;
         this.server = http.createServer(
             ((request, response) => {
-                var page = this.page(request.url);
-                this.readPage(response, page)
+                var ruta = this.ruta(request.url);
+                this.readPage(response, ruta)
             })
         );
         this.socketio = new SocketIOServer(this.server)
@@ -39,7 +39,7 @@ class HttpServer{
         });
     }
 
-    page(uri){
+    ruta(uri){
         var ruta = "";
         var directorio = "public/pages/";
         switch (uri) {
@@ -53,6 +53,9 @@ class HttpServer{
 
             case "/historico":
                 ruta = directorio + "historico.html";
+                // var switch_aire = this.dataBase.getData("switch-aire");
+                // this.socketio.emit("historico-log", switch_aire)
+                // this.socketio.emit("historico-log", {time:"hola", valor: "valor"})
                 break;
 
             case "/404":
@@ -67,6 +70,11 @@ class HttpServer{
                     var evento = {time:getTimeStamp(), valor:peticion[2]};
                     this.dataBase.insertar(peticion[1], evento)
                     this.socketio.emit(peticion[1], evento)
+
+                    // Emision de alerta
+                    if(peticion.length == 4){
+                        this.socketio.emit("alerta", peticion[3])
+                    }
                 }
                 else{
                     ruta = path.join(process.cwd(), uri);

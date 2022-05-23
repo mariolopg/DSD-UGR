@@ -40,11 +40,9 @@ class DbServer {
             })
     }
 
-    async find(nombre){
-        var mysort = { time: -1 };
-        var data = await this.dataBase.collection(nombre).find().sort(mysort).toArray();
-        
-        return data[0];
+    async getData(nombre){
+        var data = await this.dataBase.collection(nombre).find().toArray();
+        return data;
     }
 
     async insertar(nombre, valores){
