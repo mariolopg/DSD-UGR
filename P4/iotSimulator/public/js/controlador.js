@@ -2,7 +2,7 @@ window.history.forward(1);
 var historicoLeidoAire = false;
 var historicoLeidoPersiana = false;
 var historicoLeidoTemperatura = false;
-var historicoLeidoAire = false;
+var historicoLeidoLuminosidad = false;
 
 window.onload = function (){
     // Sensores

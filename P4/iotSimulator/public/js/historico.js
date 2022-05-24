@@ -2,7 +2,8 @@ window.history.forward(1);
 var historicoLeidoAire = false;
 var historicoLeidoPersiana = false;
 var historicoLeidoTemperatura = false;
-var historicoLeidoAire = false;
+// * Error en la entrega en el nombre de la variable | historicoLeidoLuminosidad leido estaba a historicoLeidoAire
+var historicoLeidoLuminosidad = false;
 
 window.onload = function (){
     document.getElementById("div-ac").addEventListener("click", toggleVisibilityAC);
