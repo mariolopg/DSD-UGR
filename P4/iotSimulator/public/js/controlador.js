@@ -1,10 +1,19 @@
+window.history.forward(1);
+var historicoLeidoAire = false;
+var historicoLeidoPersiana = false;
+var historicoLeidoTemperatura = false;
+var historicoLeidoAire = false;
+
 window.onload = function (){
-    // document.getElementById("actualizar-button").addEventListener("click", actualizarDispositivos);
     // Sensores
     document.getElementById("slider-temperatura").addEventListener("change", slider("slider-temperatura"));
     document.getElementById("slider-luminosidad").addEventListener("change", slider("slider-luminosidad"));
     document.getElementById("switch-aire").addEventListener("click", toggleAC);
     document.getElementById("switch-persiana").addEventListener("click", togglePersiana);
+
+    var httpRequest = new XMLHttpRequest()
+    httpRequest.open("GET", document.URL + "/lectura", false)
+    httpRequest.send(null)
 };
 
 var socket = io();
@@ -36,12 +45,10 @@ function slider(id){
             case "slider-temperatura":
                     var status = getToggleStatus("switch-aire");
                     if(this.value > 30 && status != "encendido"){
-                        // umbralToggleSwitcher("switch-aire", true);
                         sendAlerta("switch-aire", true, "/Se ha encendido el aire porque hace mucho calor");
                     }
                     else if(this.value < 20 && status != "apagado"){
                         sendAlerta("switch-aire", false, "/Se ha apagado el aire porque hace mucho frio");
-
                     }
                 break;
         
@@ -100,6 +107,49 @@ function setToggleStatus(id, status) {
 
 
 // Socket
+// Prelectura
+socket.on("historico-aire", function (data) {
+    if(!historicoLeidoAire){
+        data.forEach(evento => {
+            var status = false;
+            if(evento.valor == "encendido")
+                status = true;
+            setToggleStatus("switch-aire", status)
+        })
+        historicoLeidoAire = true;
+    }
+})
+
+socket.on("historico-persiana", function (data) {
+    if(!historicoLeidoPersiana){
+        data.forEach(evento => {
+            var status = false;
+            if(evento.valor == "encendido")
+                status = true;
+            setToggleStatus("switch-persiana", status)
+        })
+        historicoLeidoPersiana = true;
+    }
+})
+
+socket.on("historico-temperatura", function (data) {
+    if(!historicoLeidoTemperatura){
+        data.forEach(evento => {
+            setSlider("slider-temperatura", evento.valor);
+        });
+        historicoLeidoTemperatura = true;
+    }
+})
+
+socket.on("historico-luminosidad", function (data) {
+    if(!historicoLeidoLuminosidad){
+        data.forEach(evento => {
+            setSlider("slider-luminosidad", evento.valor);
+        });
+        historicoLeidoLuminosidad = true;
+    }
+})
+
 socket.on("switch-aire", function (data) {
     var status = false;
     if(data.valor == "encendido")
@@ -123,7 +173,8 @@ socket.on("slider-luminosidad", function (data) {
 })
 
 socket.on("alerta", function (data) {
-    parseMsg(data);
+    var alerta = parseMsg(data);
+    alert(alerta)
 })
 
 function parseMsg(data) {
@@ -132,5 +183,5 @@ function parseMsg(data) {
     pieces.forEach(element => {
         msg += element + " ";
     });
-    alert(msg)
+    return msg;
 }

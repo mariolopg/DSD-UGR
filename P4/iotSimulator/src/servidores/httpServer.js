@@ -12,14 +12,31 @@ class HttpServer{
         this.server = http.createServer(
             ((request, response) => {
                 var ruta = this.ruta(request.url);
-                this.readPage(response, ruta)
+                if(request.url == "/historico/lectura" || request.url == "/home/lectura" || request.url == "/controlador/lectura"){
+                    response.writeHead(200, mimeTypes["json"]);
+                    this.dataBase.getData("switch-aire").then((data) => {
+                        this.socketio.emit("historico-aire", data)
+                    })
+                    this.dataBase.getData("switch-persiana").then((data) => {
+                        this.socketio.emit("historico-persiana", data)
+                    })
+                    this.dataBase.getData("slider-temperatura").then((data) => {
+                        this.socketio.emit("historico-temperatura", data)
+                    })
+                    this.dataBase.getData("slider-luminosidad").then((data) => {
+                        this.socketio.emit("historico-luminosidad", data)
+                    })
+                    response.end();
+                }
+                else
+                    this.leerPagina(response, ruta)
             })
         );
         this.socketio = new SocketIOServer(this.server)
     }
 
     //Mediante fs lee el html correspondiente a la peticion del cliente.
-    readPage(response, fname){
+    leerPagina(response, fname){
         fs.readFile(fname, function (err, data) {
             if (!err) {
                 var extension = fname.split(".")[1];
@@ -30,9 +47,6 @@ class HttpServer{
             }
             else {
                 response.writeHead(301, { "Location": "/404" });
-                console.log("Peticion invalida: " + uri);
-                            response.writeHead(302, {"Location": "404"});
-                            response.end();
             }
 
             response.end();
@@ -53,9 +67,6 @@ class HttpServer{
 
             case "/historico":
                 ruta = directorio + "historico.html";
-                // var switch_aire = this.dataBase.getData("switch-aire");
-                // this.socketio.emit("historico-log", switch_aire)
-                // this.socketio.emit("historico-log", {time:"hola", valor: "valor"})
                 break;
 
             case "/404":
@@ -64,7 +75,7 @@ class HttpServer{
         
             default:
                 var peticion = uri.slice(1).split("/");
-                if(peticion[0] == 'controlador'){
+                if(peticion[0] == 'controlador' && peticion[1] != 'lectura'){
                     ruta = directorio + "controlador.html";
                     console.log(peticion[1] + " " + peticion[2])
                     var evento = {time:getTimeStamp(), valor:peticion[2]};
@@ -98,7 +109,6 @@ class HttpServer{
         } else {
             throw new Error("Error")
         }
-
     }
 }
 

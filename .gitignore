@@ -4,6 +4,7 @@
 pdfs/
 mongo.sh
 iniciarNavegador.sh
+*.zip
 
 # C
 *.o

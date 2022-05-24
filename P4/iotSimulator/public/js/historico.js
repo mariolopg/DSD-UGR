@@ -1,8 +1,18 @@
+window.history.forward(1);
+var historicoLeidoAire = false;
+var historicoLeidoPersiana = false;
+var historicoLeidoTemperatura = false;
+var historicoLeidoAire = false;
+
 window.onload = function (){
     document.getElementById("div-ac").addEventListener("click", toggleVisibilityAC);
     document.getElementById("div-persiana").addEventListener("click", toggleVisibilityPersiana);
     document.getElementById("div-temperatura").addEventListener("click", toggleVisibilityTemperatura);
     document.getElementById("div-luminosidad").addEventListener("click", toggleVisibilityLuminosidad);
+
+    var httpRequest = new XMLHttpRequest()
+    httpRequest.open("GET", document.URL + "/lectura", false)
+    httpRequest.send(null)
 };
 
 function toggleVisibilityAC() {
@@ -64,9 +74,40 @@ socket.on("slider-luminosidad", function (data) {
     addLi("historico-luminosidad", createLi(data.time + " -> Lum cambia a " + data.valor))
 })
 
-socket.on("historico-log", function (data) {
-    alerta("entra en socket")
-    addLi("historico-ac", createLi(data.time + " -> se ha " + data.valor))
+socket.on("historico-aire", function (data) {
+    if(!historicoLeidoAire){
+        data.forEach(evento => {
+            addLi("historico-ac", createLi(evento.time + " -> se ha " + evento.valor))
+        })
+        historicoLeidoAire = true;
+    }
+})
+
+socket.on("historico-persiana", function (data) {
+    if(!historicoLeidoPersiana){
+        data.forEach(evento => {
+            addLi("historico-persiana", createLi(evento.time + " -> se ha " + evento.valor))
+        })
+        historicoLeidoPersiana = true;
+    }
+})
+
+socket.on("historico-temperatura", function (data) {
+    if(!historicoLeidoTemperatura){
+        data.forEach(evento => {
+            addLi("historico-temperatura", createLi(evento.time + " -> Tª cambia a " + evento.valor))
+        })
+        historicoLeidoTemperatura = true;
+    }
+})
+
+socket.on("historico-luminosidad", function (data) {
+    if(!historicoLeidoLuminosidad){
+        data.forEach(evento => {
+            addLi("historico-luminosidad", createLi(evento.time + " -> Lum cambia a " + evento.valor))
+        })
+        historicoLeidoLuminosidad = true;
+    }
 })
 
 function alerta(alerta) {
